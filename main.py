@@ -49,6 +49,13 @@ insurance_model.compile(loss=tf.keras.losses.mae,
 # 3. Fit the model
 history = insurance_model.fit(X_train, y_train, epochs=150)
 
+y_pred = insurance_model.predict(X_test)
+# print(y_pred.squeeze().shape)
+# print(y_test.shape)
+
+results = pd.DataFrame({"PredictValue": y_pred.squeeze()[:], "TrueValue": y_test[:], "ERROR": abs(y_pred.squeeze()-y_test)})
+print(results)
+
 # Check the results of the insurance model
 print(insurance_model.evaluate(X_test, y_test))
 
